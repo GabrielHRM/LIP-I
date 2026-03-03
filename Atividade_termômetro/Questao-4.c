@@ -11,7 +11,7 @@ float f_c(float f){
 int main() {
     float temp;
     float resposta;
-    printf("Digite o numero de temperaturas: ");
+    printf("Digite uma temperatura: ");
     scanf("%f", &temp);
 
     int opcao;
