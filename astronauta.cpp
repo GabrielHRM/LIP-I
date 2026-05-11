@@ -8,8 +8,8 @@ class Astronauta{
         string cpf;
         string nome;
         int idade;
-        int estado; //vivo(1) ou morto(0)
-        int disponibilidade; //Disponivel(1) ou indisponivel(0)
+        bool estado; //vivo(1) ou morto(0)
+        bool disponibilidade; //Disponivel(1) ou indisponivel(0)
 
     Astronauta(string c, string n, int i){
         cpf = c;
@@ -167,8 +167,160 @@ int main(){
                     cout<<"Astronauta removido da lista de passageiros"<<endl;
                 }
             }
+        }else if(comando == "LANCAR_VOO"){
+            int code;
+            cin >> code;
+
+            Voo* vooEncontrado = nullptr;
+
+            for(auto& v : voos){
+                if(code == v.codevoo){
+                    vooEncontrado = &v;
+                    break;
+                }
+            }
+
+            if(vooEncontrado == nullptr){
+                cout<<"Voo nao cadastrado"<<endl;
+            }else  if(vooEncontrado->estado != "planejado"){
+                cout<<"Voo nao esta mais planejado"<<endl;
+            }else if (vooEncontrado->cpfsPassageiros.empty()) {
+                cout << "Erro: Nao e possivel lancar um voo sem astronautas." << endl;
+            }else{
+                bool lancamento = true;
+
+                for(const string& cpfP : vooEncontrado->cpfsPassageiros){
+                    for(auto& a : astronautas){
+                        if(a.cpf == cpfP){
+                            if(a.estado == 0 || a.disponibilidade == 0){
+                                lancamento = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if(!lancamento){
+                cout<<"Astronauta morto ou nao disponivel"<<endl;
+            }else{
+                vooEncontrado->estado = "em curso";
+
+                for(const string& cpfP : vooEncontrado->cpfsPassageiros){
+                    for(auto& a : astronautas){
+                        if(a.cpf == cpfP){
+                            a.estado = false; //morto;
+                        }
+                    }
+                }
+            }
+        }else if(comando == "EXPLODIR_VOO"){
+            int code;
+            cin >> code;
+
+            Voo* vooEncontrado = nullptr;
+
+            for(auto& v : voos){
+                if(code == v.codevoo){
+                    vooEncontrado = &v;
+                    break;
+                }
+            }
+
+            if(vooEncontrado == nullptr){
+                cout<<"Voo nao cadastrado"<<endl;
+            }else  if(vooEncontrado->estado != "em curso"){
+                cout<<"Voo nao esta em curso"<<endl;
+            }else{
+                vooEncontrado->estado = "finalizado com explosão";
+
+                for(const string& cpfP : vooEncontrado->cpfsPassageiros){
+                    for(auto& a : astronautas){
+                        if(a.cpf == cpfP){
+                            a.estado = false; //morto
+                            a.disponibilidade = false; //indisponivel
+                        }
+                    }
+                }
+            }
+        }else if(comando == "FINALIZAR_VOO"){
+            int code;
+            cin >> code;
+
+            Voo* vooEncontrado = nullptr;
+
+            for(auto& v : voos){
+                if(code == v.codevoo){
+                    vooEncontrado = &v;
+                    break;
+                }
+            }
+
+            if(vooEncontrado == nullptr){
+                cout<<"Voo nao cadastrado"<<endl;
+            }else  if(vooEncontrado->estado != "em curso"){
+                cout<<"Voo nao esta mais planejado"<<endl;
+            }else{
+                vooEncontrado->estado = "finalizado com sucesso";
+
+                for(const string& cpfP : vooEncontrado->cpfsPassageiros){
+                    for(auto& a : astronautas){
+                        if(a.cpf == cpfP){
+                            a.disponibilidade = true; //disponivel
+                        }
+                    }
+                }
+            }
+        }else if(comando == "LISTAR_VOOS"){
+            string estados[] = {"planejado", "em curso", "finalizado com sucesso", "finalizado com explosão"};
+
+            for(int i = 0; i < 4; i++){
+                cout << "VOOS: " << estados[e] << endl;
+                
+                for(auto& v : voos){
+                    if(v.estado == estados[i]){
+                        cout << "Codigo: " << v.codevoo << endl;
+                        cout << "Passageiros:" << endl;
+
+                        for(const string& cpfP : v.cpfsPassageiros){
+                            for(auto& a : astronautas){
+                                if(a.cpf == cpfP){
+                                    cout << a.cpf << ": " << a.nome << endl;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }else if(comando == "LISTAR_MORTOS"){
+            cout << "--- LISTA DE ASTRONAUTAS MORTOS ---" << endl;
+            bool encontrouMorto = false;
+
+            for(auto& a : astronautas){
+                if(a.estado == false){
+                    encontrouMorto = true;
+                    cout << "CPF: "<<a.cpf<<endl;
+                    cout<<"Nome: " << a.nome << endl;
+
+                    cout<<"Voos que participou: "<<endl;
+                    for(auto& v : voos){
+                        if(v.estado != "planejado"){
+                            for(const string& cpfP : v.cpfsPassageiros){
+                                for(auto& a : astronautas){
+                                    if(cpfP == a.cpf){
+                                        cout << v.codevoo << " ";
+                                        participouDeAlgum = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(encontrouMorto == false){
+                cout<<"Nenhum astronauta morto no sistema."<<endl;
+            }
         }
     }
-
     return 0;
 };
