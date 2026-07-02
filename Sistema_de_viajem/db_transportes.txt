@@ -1,3 +1,2 @@
 Uno;T;4;100;150;1;Recife
-Veleiro;A;10;40;200;2;Natal
 Jatinho;E;2;500;2000;0;Noronha
