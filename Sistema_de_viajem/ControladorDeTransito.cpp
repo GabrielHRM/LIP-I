@@ -214,7 +214,7 @@ void ControladorDeTransito::relatarEstado() const
                 if (v->isEmAndamento()) {
                     auto pList = v->getPassageiros();
                     if (std::find(pList.begin(), pList.end(), p) != pList.end()) {
-                        std::cout << " * Pessoas: " << p->getNome() << " [EM TRÂNSITO] na rota " 
+                        std::cout << " * Pessoas: " << p->getNome() << " [EM TRANSITO] na rota " 
                                   << v->getOrigem()->getNome() << " -> " << v->getDestino()->getNome() 
                                   << " atraves do veiculo: " << v->getTransporte()->getNome() << "\n";
                         break;
