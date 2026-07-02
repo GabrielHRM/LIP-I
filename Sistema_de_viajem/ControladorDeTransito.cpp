@@ -331,7 +331,7 @@ void ControladorDeTransito::carregarDados()
             std::stringstream ss(linha);
             std::string nome, local; char tipo; int cap, vel, distD, tempD;
             if (std::getline(ss, nome, ';') && (ss >> tipo) && ss.ignore() && (ss >> cap) && ss.ignore() 
-                && (ss >> vel) && ss.ignore() && (distD) && ss.ignore() && (ss >> tempD) 
+                && (ss >> vel) && ss.ignore() && (ss >> distD) && ss.ignore() && (ss >> tempD) 
                 && ss.ignore() && std::getline(ss, local)) {
                 if (local == "EM_TRANSITO" && !cidades.empty()) {
                     local = cidades[0]->getNome();

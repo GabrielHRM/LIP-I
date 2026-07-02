@@ -21,6 +21,6 @@ $(TARGET): $(OBJS)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Apaga o programa e os arquivos temporários para limpar a pasta
+# Apaga o programa e os arquivos temporários no Windows
 clean:
-	rm -f $(OBJS) $(TARGET)
+	del /f /q $(OBJS) $(TARGET).exe 2>nul || exit 0
