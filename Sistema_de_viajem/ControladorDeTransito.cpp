@@ -205,7 +205,7 @@ void ControladorDeTransito::relatarEstado() const
     std::cout << "            STATUS CONTROLADOR DE TRANSITO          \n";
     std::cout << "==================================================\n";
 
-    std::cout << "\n--- Localizaçao de Passageiros ---\n";
+    std::cout << "\n--- Localizacao de Passageiros ---\n";
     for (auto* p : passageiros) {
         if (p->getLocalAtual()) {
             std::cout << " * Pessoas: " << p->getNome() << " esta em [Cidade: " << p->getLocalAtual()->getNome() << "]\n";
@@ -224,7 +224,7 @@ void ControladorDeTransito::relatarEstado() const
         }
     }
 
-    std::cout << "\n--- Localizaçao de Veiculos ---\n";
+    std::cout << "\n--- Localizacao de Veiculos ---\n";
     for (auto* t : transportes) {
         if (t->getLocalAtual()) {
             std::cout << " * Transporte: " << t->getNome() << " estacionado em -> " << t->getLocalAtual()->getNome() << "\n";

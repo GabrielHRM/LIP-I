@@ -5,3 +5,9 @@ Natal;Recife;T;300
 Recife;Noronha;E;500
 Natal;Recife;T;300
 Recife;Noronha;E;500
+Natal;Recife;T;300
+Recife;Noronha;E;500
+Natal;Recife;T;300
+Recife;Noronha;E;500
+Natal;Recife;T;300
+Recife;Noronha;E;500
