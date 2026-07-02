@@ -7,7 +7,7 @@
 // Imprime as opções do menu na tela
 void mostrarMenu()
 {
-    std::cout << "--- MENU CONTROLADOR DE VIAGENS ---\n";
+    std::cout << "\n--- MENU CONTROLADOR DE VIAGENS ---\n";
     std::cout << "1. Cadastrar Cidade\n";
     std::cout << "2. Cadastrar Trajeto\n";
     std::cout << "3. Cadastrar Transporte\n";
