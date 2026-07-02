@@ -1,2 +1,0 @@
-Uno;T;4;100;150;1;Recife
-Jatinho;E;2;500;2000;0;Noronha
