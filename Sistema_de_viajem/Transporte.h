@@ -14,6 +14,7 @@ protected:
     int distancia_entre_descansos;  // Quantos km pode andar antes de parar
     int tempo_de_descanso;          // Quantas horas fica parado descansando
     int tempo_de_descanso_atual;    // Horas que ainda faltam para terminar o descanso
+    int kmRodadosSemDescanso;
     Cidade* localAtual;             // Cidade onde está parado (fica vazio se estiver viajando)
 
 public:
@@ -31,6 +32,10 @@ public:
     void setTempoDescansoAtual(int tempo);
     Cidade* getLocalAtual() const;
     void setLocalAtual(Cidade* local);
+
+    void registrarKmRodado(int km) { kmRodadosSemDescanso += km; }
+    void zerarCansaco() { kmRodadosSemDescanso = 0; }
+    int getKmSemDescanso() const { return kmRodadosSemDescanso; }
 
     // Diz se o veículo consegue andar naquele tipo de caminho
     virtual bool podeViajarEm(char tipoTrajeto) const = 0; 
