@@ -13,11 +13,11 @@ void mostrarMenu()
     std::cout << "3. Cadastrar Transporte\n";
     std::cout << "4. Cadastrar Passageiro\n";
     std::cout << "5. Iniciar Viagem\n";
-    std::cout << "6. Avançar Horas\n";
-    std::cout << "7. Exibir Relatórios do Sistema\n";
-    std::cout << "8. Salvar Modificações (Persistência)\n";
+    std::cout << "6. Avancar Horas\n";
+    std::cout << "7. Exibir Relatorios do Sistema\n";
+    std::cout << "8. Salvar Modificacoes (Persistencia)\n";
     std::cout << "0. Encerrar Sistema\n";
-    std::cout << "Entre com a opção desejada: ";
+    std::cout << "Entre com a opcao desejada: ";
 }
 
 // Canal de comunicação direta entre as ações do usuário e o gerenciador do sistema
@@ -47,17 +47,17 @@ int main()
             std::cout << "Origem: "; std::getline(std::cin, o);
             std::cout << "Destino: "; std::getline(std::cin, d);
             // Incluído a opção E no menu de trajetos
-            std::cout << "Tipo de ambiente (A - Aquático, T - Terrestre, E - Aéreo): "; std::cin >> t;
-            std::cout << "Distância total (em Quilômetros): "; std::cin >> dist;
+            std::cout << "Tipo de ambiente (A - Aquatico, T - Terrestre, E - Aereo): "; std::cin >> t;
+            std::cout << "Distancia total (em Quilometros): "; std::cin >> dist;
             ctrl.cadastrarTrajeto(o, d, t, dist);
         } else if (escolha == 3) {
             std::string nome, local; char t; int cap, vel, distD, tempD;
-            std::cout << "Nome do Veículo: "; std::getline(std::cin, nome);
+            std::cout << "Nome do Veiculo: "; std::getline(std::cin, nome);
             // Incluído a opção E no menu de transportes
-            std::cout << "Tipo (A - Aquático, T - Terrestre, E - Aéreo): "; std::cin >> t;
-            std::cout << "Capacidade Máxima (Pessoas): "; std::cin >> cap;
-            std::cout << "Velocidade Média (Km/h): "; std::cin >> vel;
-            std::cout << "Janela máxima antes de parada (Km): "; std::cin >> distD;
+            std::cout << "Tipo (A - Aquatico, T - Terrestre, E - Aereo): "; std::cin >> t;
+            std::cout << "Capacidade Maxima (Pessoas): "; std::cin >> cap;
+            std::cout << "Velocidade Media (Km/h): "; std::cin >> vel;
+            std::cout << "Janela maxima antes de parada (Km): "; std::cin >> distD;
             std::cout << "Tempo de descanso regulamentar (Horas): "; std::cin >> tempD;
             std::cin.ignore();
             std::cout << "Cidade Sede (Local Inicial): "; std::getline(std::cin, local);
@@ -65,15 +65,15 @@ int main()
         } else if (escolha == 4) {
             std::string nome, local;
             std::cout << "Nome do Passageiro: "; std::getline(std::cin, nome);
-            std::cout << "Cidade de Alocação Inicial: "; std::getline(std::cin, local);
+            std::cout << "Cidade de Alocacao Inicial: "; std::getline(std::cin, local);
             ctrl.cadastrarPassageiro(nome, local);
         } else if (escolha == 5) {
             std::string v, o, d, pLinha, pNome;
             std::vector<std::string> listaPassageiros;
             std::cout << "Nome do Transporte escolhido: "; std::getline(std::cin, v);
-            std::cout << "Cidade de Saída: "; std::getline(std::cin, o);
+            std::cout << "Cidade de Saida: "; std::getline(std::cin, o);
             std::cout << "Cidade Destino Final: "; std::getline(std::cin, d);
-            std::cout << "Passageiros (separados por vírgula): "; std::getline(std::cin, pLinha);
+            std::cout << "Passageiros (separados por virgula): "; std::getline(std::cin, pLinha);
             
             // Separa os nomes dos passageiros digitados na mesma linha por vírgula e limpa os espaços vazios
             std::stringstream ss(pLinha);
@@ -87,7 +87,7 @@ int main()
             ctrl.iniciarViagem(v, listaPassageiros, o, d);
         } else if (escolha == 6) {
             int h;
-            std::cout << "Quantidade de horas para simulação: "; std::cin >> h;
+            std::cout << "Quantidade de horas para simulacao: "; std::cin >> h;
             ctrl.avancarHoras(h);
         } else if (escolha == 7) {
             ctrl.relatarEstado();

@@ -137,12 +137,12 @@ void ControladorDeTransito::iniciarViagem(std::string nomeTransporte, std::vecto
     Cidade* d = buscarCidade(nomeDestino);
 
     if (!t || !o || !d || t->getLocalAtual() != o) {
-        std::cout << "Erro: Iniciação abortada. Transporte indisponível ou local incorreto.\n";
+        std::cout << "Erro: Iniciacao abortada. Transporte indisponivel ou local incorreto.\n";
         return;
     }
 
     if (nomesPassageiros.size() > static_cast<size_t>(t->getCapacidade())) {
-        std::cout << "Erro: Lotação máxima excedida.\n";
+        std::cout << "Erro: Lotaçao maxima excedida.\n";
         return;
     }
 
@@ -159,7 +159,7 @@ void ControladorDeTransito::iniciarViagem(std::string nomeTransporte, std::vecto
     std::vector<Trajeto*> melhorCaminho;
 
     if (!encontrarCaminho(o, d, t, visitados, caminhoAtual, melhorCaminho)) {
-        std::cout << "Erro: Não foi localizado nenhum trajeto viável para esta categoria de veículo.\n";
+        std::cout << "Erro: Nao foi localizado nenhum trajeto viavel para esta categoria de veiculo.\n";
         return;
     }
 
@@ -202,13 +202,13 @@ void ControladorDeTransito::avancarHoras(int horas)
 void ControladorDeTransito::relatarEstado() const
 {
     std::cout << "\n==================================================\n";
-    std::cout << "            STATUS CONTROLADOR DE TRÂNSITO          \n";
+    std::cout << "            STATUS CONTROLADOR DE TRANSITO          \n";
     std::cout << "==================================================\n";
 
-    std::cout << "\n--- Localização de Passageiros ---\n";
+    std::cout << "\n--- Localizaçao de Passageiros ---\n";
     for (auto* p : passageiros) {
         if (p->getLocalAtual()) {
-            std::cout << " * Pessoas: " << p->getNome() << " está em [Cidade: " << p->getLocalAtual()->getNome() << "]\n";
+            std::cout << " * Pessoas: " << p->getNome() << " esta em [Cidade: " << p->getLocalAtual()->getNome() << "]\n";
         } else {
             for (auto* v : viagens) {
                 if (v->isEmAndamento()) {
@@ -216,7 +216,7 @@ void ControladorDeTransito::relatarEstado() const
                     if (std::find(pList.begin(), pList.end(), p) != pList.end()) {
                         std::cout << " * Pessoas: " << p->getNome() << " [EM TRÂNSITO] na rota " 
                                   << v->getOrigem()->getNome() << " -> " << v->getDestino()->getNome() 
-                                  << " através do veículo: " << v->getTransporte()->getNome() << "\n";
+                                  << " atraves do veiculo: " << v->getTransporte()->getNome() << "\n";
                         break;
                     }
                 }
@@ -224,12 +224,12 @@ void ControladorDeTransito::relatarEstado() const
         }
     }
 
-    std::cout << "\n--- Localização de Veículos ---\n";
+    std::cout << "\n--- Localizaçao de Veiculos ---\n";
     for (auto* t : transportes) {
         if (t->getLocalAtual()) {
             std::cout << " * Transporte: " << t->getNome() << " estacionado em -> " << t->getLocalAtual()->getNome() << "\n";
         } else {
-            std::cout << " * Transporte: " << t->getNome() << " operando [EM TRÂNSITO]\n";
+            std::cout << " * Transporte: " << t->getNome() << " operando [EM TRANSITO]\n";
         }
     }
 
