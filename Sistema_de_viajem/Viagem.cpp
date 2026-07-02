@@ -110,7 +110,7 @@ void Viagem::avancarHoras(int horas)
 
             // Se atingir o limite do motorista, ativa o descanso obrigatório e para de andar
             // <- ALTERADO: A checagem agora é "transporte->getKmSemDescanso() >= descEntre"
-            if (transporte->getKmSemDescanso() >= descEntre && distanciaPercorrida < distanciaTotal) {
+            if (transporte->getKmSemDescanso() >= descEntre) {
                 transporte->setTempoDescansoAtual(transporte->getTempoDescanso());
                 transporte->zerarCansaco(); // <- ADICIONADO: Zera o cansaço na memória do veículo
                 kmDesdeUltimoDescanso = 0;
