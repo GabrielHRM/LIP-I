@@ -191,9 +191,18 @@ void ControladorDeTransito::iniciarViagem(std::string nomeTransporte, std::vecto
 // Faz o tempo andar apenas nas viagens que estão rodando na estrada no momento
 void ControladorDeTransito::avancarHoras(int horas)
 {
-    for (auto* v : viagens) {
-        if (v->isEmAndamento()) {
-            v->avancarHoras(horas);
+    // Avanca o relogio global 1 hora de cada vez
+    for (int h = 0; h < horas; ++h) {
+        // Coleta quem esta ativo no inicio desta hora exata
+        std::vector<Viagem*> ativasNestaHora;
+        for (auto* v : viagens) {
+            if (v->isEmAndamento()) {
+                ativasNestaHora.push_back(v);
+            }
+        }
+        // Aplica 1 hora de progresso apenas neles
+        for (auto* v : ativasNestaHora) {
+            v->avancarHoras(1);
         }
     }
 }

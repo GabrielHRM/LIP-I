@@ -138,7 +138,7 @@ void Viagem::relatarEstado() const
 {
     std::cout << "  Trecho: " << origem->getNome() << " -> " << destino->getNome() 
               << " | Progresso: " << distanciaPercorrida << "/" << distanciaTotal << " km"
-              << " | Tempo: " << horasEmTransito << "h";
+              << " | Tempo neste trecho: " << horasEmTransito << "h";
     if (transporte->getTempoDescansoAtual() > 0) {
         std::cout << " [Parada para descanso: " << transporte->getTempoDescansoAtual() << "h restantes]";
     }
