@@ -3,12 +3,14 @@
 
 #include <string>
 
+// Representa uma cidade no sistema
 class Cidade {
 private:
-    std::string nome;
+    std::string nome; // Nome da cidade
+
 public:
     Cidade(std::string nome);
-    std::string getNome();
+    std::string getNome() const;
 };
 
 #endif

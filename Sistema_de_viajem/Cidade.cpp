@@ -1,9 +1,12 @@
 #include "Cidade.h"
 
-Cidade::Cidade(std::string nome) {
-    this->nome = nome;
+// Cria uma cidade com o nome informado
+Cidade::Cidade(std::string nome) : nome(nome)
+{
 }
 
-std::string Cidade::getNome() {
-    return this->nome;
+// Retorna o nome da cidade
+std::string Cidade::getNome() const
+{ 
+    return nome;
 }

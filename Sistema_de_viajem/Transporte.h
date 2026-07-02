@@ -4,31 +4,60 @@
 #include <string>
 #include "Cidade.h"
 
+// Modelo geral para criar qualquer tipo de veículo
 class Transporte {
-private:
-    std::string nome;
-    char tipo; // 'A' (Aquático), 'T' (Terrestre), 'V' (Aéreo/Voo)
-    int capacidade;
-    int velocidade; 
-    int distancia_entre_descansos;
-    int tempo_de_descanso;
-    int tempo_de_descanso_atual;
-    Cidade* localAtual;
+protected:
+    std::string nome;               // Nome do veículo
+    char tipo;                      // 'A' (aquático), 'T' (terrestre) ou 'E' (aéreo)
+    int capacidade;                 // Quantas pessoas cabem
+    int velocidade;                 // Velocidade em km/h
+    int distancia_entre_descansos;  // Quantos km pode andar antes de parar
+    int tempo_de_descanso;          // Quantas horas fica parado descansando
+    int tempo_de_descanso_atual;    // Horas que ainda faltam para terminar o descanso
+    Cidade* localAtual;             // Cidade onde está parado (fica vazio se estiver viajando)
+
 public:
-    Transporte(std::string nome, char tipo, int capacidade, int velocidade, 
+    Transporte(std::string nome, char tipo, int capacidade, int velocidade,
                int distancia_entre_descansos, int tempo_de_descanso, Cidade* localAtual);
-    
-    std::string getNome();
-    char getTipo();
-    int getCapacidade();
-    int getVelocidade();
-    int getDistanciaEntreDescansos();
-    int getTempoDescanso();
-    int getTempoDescansoAtual();
-    Cidade* getLocalAtual();
-    
-    void setLocalAtual(Cidade* local);
+    virtual ~Transporte() = default;
+
+    std::string getNome() const;
+    char getTipo() const;
+    int getCapacidade() const;
+    int getVelocidade() const;
+    int getDistanciaEntreDescansos() const;
+    int getTempoDescanso() const;
+    int getTempoDescansoAtual() const;
     void setTempoDescansoAtual(int tempo);
+    Cidade* getLocalAtual() const;
+    void setLocalAtual(Cidade* local);
+
+    // Diz se o veículo consegue andar naquele tipo de caminho
+    virtual bool podeViajarEm(char tipoTrajeto) const = 0; 
+};
+
+// Veículo que só anda na água
+class TransporteAquatico : public Transporte {
+public:
+    TransporteAquatico(std::string nome, int capacidade, int velocidade,
+                       int distancia_entre_descansos, int tempo_de_descanso, Cidade* localAtual);
+    bool podeViajarEm(char tipoTrajeto) const override;
+};
+
+// Veículo que só anda na terra
+class TransporteTerrestre : public Transporte {
+public:
+    TransporteTerrestre(std::string nome, int capacidade, int velocidade,
+                        int distancia_entre_descansos, int tempo_de_descanso, Cidade* localAtual);
+    bool podeViajarEm(char tipoTrajeto) const override;
+};
+
+// Veículo que só anda no ar (Aviões / Helicópteros)
+class TransporteAereo : public Transporte {
+public:
+    TransporteAereo(std::string nome, int capacidade, int velocidade,
+                    int distancia_entre_descansos, int tempo_de_descanso, Cidade* localAtual);
+    bool podeViajarEm(char tipoTrajeto) const override;
 };
 
 #endif

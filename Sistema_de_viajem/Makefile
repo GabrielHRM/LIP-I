@@ -1,29 +1,26 @@
-# Compilador a ser utilizado
-CXX = g++
+# Nome do programa final que será criado
+TARGET = programa
 
-# Flags de compilação (mostra avisos e usa o padrão C++11)
-CXXFLAGS = -Wall -std=c++11
+# Compilador de C++
+CC = g++
 
-# Nome do executável final
-TARGET = controlador_viagens
+# Opções de compilação (ativa alertas de erros comuns)
+CFLAGS = -Wall -std=c++17
 
-# Lista de todos os arquivos fonte (.cpp)
-SRCS = main.cpp Cidade.cpp Passageiro.cpp Trajeto.cpp Transporte.cpp Viagem.cpp ControladorDeTransito.cpp
+# Lista com todos os arquivos de código do projeto
+SRCS = main.cpp Cidade.cpp Trajeto.cpp Transporte.cpp Passageiro.cpp Viagem.cpp ControladorDeTransito.cpp
 
-# Transforma a lista de .cpp em uma lista de objetos .o
+# Cria automaticamente a lista de arquivos temporários (.o)
 OBJS = $(SRCS:.cpp=.o)
 
-# Regra principal
-all: $(TARGET)
-
-# Regra para gerar o executável
+# Comando principal: junta tudo e cria o programa
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-# Regra para compilar cada .cpp em um .o
+# Comando para compilar cada arquivo de texto em código binário
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Regra para limpar os arquivos compilados (útil para recompilar do zero)
+# Apaga o programa e os arquivos temporários para limpar a pasta
 clean:
 	rm -f $(OBJS) $(TARGET)

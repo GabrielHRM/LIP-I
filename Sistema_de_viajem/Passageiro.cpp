@@ -1,18 +1,23 @@
 #include "Passageiro.h"
 
-Passageiro::Passageiro(std::string nome, Cidade* localAtual) {
-    this->nome = nome;
-    this->localAtual = localAtual;
+// Cria o passageiro e define onde ele começa
+Passageiro::Passageiro(std::string nome, Cidade* localAtual) :
+    nome(nome), localAtual(localAtual)
+{
 }
 
-std::string Passageiro::getNome() {
-    return this->nome;
+std::string Passageiro::getNome() const
+{ 
+    return nome; 
 }
 
-Cidade* Passageiro::getLocalAtual() {
-    return this->localAtual;
+Cidade* Passageiro::getLocalAtual() const
+{ 
+    return localAtual; 
 }
 
-void Passageiro::setLocalAtual(Cidade* local) {
-    this->localAtual = local;
+// Atualiza onde a pessoa está no momento
+void Passageiro::setLocalAtual(Cidade* local)
+{ 
+    localAtual = local; 
 }

@@ -1,13 +1,28 @@
 #include "Trajeto.h"
 
-Trajeto::Trajeto(Cidade* origem, Cidade* destino, char tipo, int distancia) {
-    this->origem = origem;
-    this->destino = destino;
-    this->tipo = tipo;
-    this->distancia = distancia;
+// Configura as informações do trajeto
+Trajeto::Trajeto(Cidade* origem, Cidade* destino, char tipo, int distancia) :
+    origem(origem), destino(destino), tipo(tipo), distancia(distancia)
+{
 }
 
-Cidade* Trajeto::getOrigem() { return this->origem; }
-Cidade* Trajeto::getDestino() { return this->destino; }
-char Trajeto::getTipo() { return this->tipo; }
-int Trajeto::getDistancia() { return this->distancia; }
+Cidade* Trajeto::getOrigem() const
+{ 
+    return origem; 
+}
+
+Cidade* Trajeto::getDestino() const
+{ 
+    return destino; 
+}
+
+// Retorna se o caminho é por terra, água ou ar
+char Trajeto::getTipo() const
+{ 
+    return tipo; 
+}
+
+int Trajeto::getDistancia() const
+{ 
+    return distancia; 
+}
