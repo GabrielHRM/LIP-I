@@ -106,10 +106,13 @@ void Viagem::avancarHoras(int horas)
             distanciaPercorrida++;
             andadoNestaHora++;
             kmDesdeUltimoDescanso++;
+            transporte->registrarKmRodado(1); // <- ADICIONADO: O veículo anota o km que rodou
 
             // Se atingir o limite do motorista, ativa o descanso obrigatório e para de andar
-            if (kmDesdeUltimoDescanso >= descEntre && distanciaPercorrida < distanciaTotal) {
+            // <- ALTERADO: A checagem agora é "transporte->getKmSemDescanso() >= descEntre"
+            if (transporte->getKmSemDescanso() >= descEntre && distanciaPercorrida < distanciaTotal) {
                 transporte->setTempoDescansoAtual(transporte->getTempoDescanso());
+                transporte->zerarCansaco(); // <- ADICIONADO: Zera o cansaço na memória do veículo
                 kmDesdeUltimoDescanso = 0;
                 break; 
             }

@@ -14,7 +14,7 @@ protected:
     int distancia_entre_descansos;  // Quantos km pode andar antes de parar
     int tempo_de_descanso;          // Quantas horas fica parado descansando
     int tempo_de_descanso_atual;    // Horas que ainda faltam para terminar o descanso
-    int kmRodadosSemDescanso;
+    int kmRodadosSemDescanso;       // Variável de fadiga do veículo
     Cidade* localAtual;             // Cidade onde está parado (fica vazio se estiver viajando)
 
 public:
@@ -33,6 +33,7 @@ public:
     Cidade* getLocalAtual() const;
     void setLocalAtual(Cidade* local);
 
+    // <- ADICIONADO: Funções para gerenciar o cansaço global do veículo
     void registrarKmRodado(int km) { kmRodadosSemDescanso += km; }
     void zerarCansaco() { kmRodadosSemDescanso = 0; }
     int getKmSemDescanso() const { return kmRodadosSemDescanso; }

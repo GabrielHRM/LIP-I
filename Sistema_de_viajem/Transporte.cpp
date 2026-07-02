@@ -5,7 +5,7 @@ Transporte::Transporte(std::string nome, char tipo, int capacidade, int velocida
                        int distancia_entre_descansos, int tempo_de_descanso, Cidade* localAtual) :
     nome(nome), tipo(tipo), capacidade(capacidade), velocidade(velocidade),
     distancia_entre_descansos(distancia_entre_descansos), tempo_de_descanso(tempo_de_descanso),
-    tempo_de_descanso_atual(0), localAtual(localAtual)
+    tempo_de_descanso_atual(0), kmRodadosSemDescanso(0), localAtual(localAtual) 
 {
 }
 
