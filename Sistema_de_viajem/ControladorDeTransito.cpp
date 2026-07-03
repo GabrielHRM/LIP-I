@@ -77,7 +77,6 @@ void ControladorDeTransito::cadastrarTransporte(std::string nome, char tipo, int
     } else if (tipo == 'T') {
         t = new TransporteTerrestre(nome, capacidade, velocidade, distancia_entre_descansos, tempo_de_descanso, local);
     } else if (tipo == 'E') {
-        // Agora aceita a criação de transportes aéreos
         t = new TransporteAereo(nome, capacidade, velocidade, distancia_entre_descansos, tempo_de_descanso, local);
     }
     
