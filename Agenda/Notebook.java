@@ -7,8 +7,8 @@ public class Notebook{
         notes = new ArrayList<String>();
     }
 
-    //Prefiro ter notas distintas para uma agenda
-    //Ter a mesma mensagem duplicada polui a visualização de algo que tem como objetivo lembrar pendencias
+    //Lógica: A verificação usa o método contains(), que aplica a comparação via .equals() no conteúdo das Strings.
+    //Motivo: Impedir duplicatas evita poluir a agenda com pendências repetidas.
     public void storeNote(String note){
         if(notes.contains(note)){
             System.out.println("Nota |" + note + "| já adicionada! Inserção cancelada.");
@@ -21,9 +21,9 @@ public class Notebook{
         return notes.size();
     }
     
-    public void removeNote(String note){
-        if(notes.contains(note)){
-            notes.remove(note);
+    public void removeNote(int noteNumber){
+        if(noteNumber >= 0 && noteNumber < numberOfNotes()){
+            notes.remove(noteNumber);
         }else{
             System.out.println("Erro: A nota nao existe, ou ja foi removido, na agenda.");
         }

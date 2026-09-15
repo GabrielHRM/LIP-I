@@ -24,8 +24,9 @@ public class NotebookView {
 
         System.out.println("==========TESTE DE REMOVER NOTAS NA AGENDA===========");
 
-        meuNotebook.removeNote("244456789");
-        meuNotebook.removeNote("244456789");
+        int indiceNota = 2;
+        meuNotebook.removeNote(indiceNota);
+        meuNotebook.removeNote(indiceNota);
         //Tamanho atual: 2
         //Indice: 0-1
         System.out.println("Total de notas atuais da agenda: " + tamanhoAgenda);
