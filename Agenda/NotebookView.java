@@ -17,10 +17,9 @@ public class NotebookView {
 
         System.out.println("==========TESTE DO NUMERO DE NOTAS NA AGENDA===========");
 
-        int tamanhoAgenda = meuNotebook.numberOfNotes();
         //Tamanho atual: 3
         //Indices: 0-2
-        System.out.println("Total de notas atuais da agenda: "+ tamanhoAgenda);
+        System.out.println("Total de notas atuais da agenda: "+ meuNotebook.numberOfNotes());
 
         System.out.println("==========TESTE DE REMOVER NOTAS NA AGENDA===========");
 
@@ -29,7 +28,7 @@ public class NotebookView {
         meuNotebook.removeNote(indiceNota);
         //Tamanho atual: 2
         //Indice: 0-1
-        System.out.println("Total de notas atuais da agenda: " + tamanhoAgenda);
+        System.out.println("Total de notas atuais da agenda: " + meuNotebook.numberOfNotes());
 
         System.out.println("==========TESTE DE MOSTRAR NOTA ESPECIFICA===========");
 
