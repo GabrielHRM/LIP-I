@@ -9,6 +9,8 @@ public class NotebookView {
         meuNotebook.storeNote("Java eh bao dmais!!!");
         meuNotebook.storeNote("244456789");
 
+        meuNotebook.listNotes();
+
         System.out.println("==========TESTE DE ADICIONAR UMA NOTA JÁ EXISTENTE===========");
 
         meuNotebook.storeNote("244456789");
