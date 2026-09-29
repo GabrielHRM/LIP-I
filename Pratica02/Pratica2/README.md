@@ -6,16 +6,11 @@ A superclasse `Aluno` concentra os dados e comportamentos comuns. As subclasses 
 
 ## Identificação
 
-**Nome:** PREENCHER
+**Nome:** Gabriel Henrique Rocha Melo
 
-**Matrícula:** PREENCHER
+**Matrícula:** 20250059916
 
-**Versão do JDK utilizada:** PREENCHER  
-Verifique com:
-
-```bash
-java -version
-```
+**Versão do JDK utilizada:** openjdk version "25.0.4.1" 2026-08-18 LTS  
 
 ## Como compilar e executar
 
@@ -69,7 +64,7 @@ Porque todas as classes específicas herdam de `Aluno`.
 
 O cliente pode manter uma referência do tipo `Aluno` e chamar métodos como `lancarNota()`, `getSituacao()`, `getPeriodoAtual()` e `getPrazo()` independentemente da subclasse concreta.
 
-Quando um desses métodos foi sobrescrito, a implementação executada é a da classe real do objeto armazenado na memória. Isso é polimorfismo por sobrescrita com ligação dinâmica (late binding).
+Quando um desses métodos foi sobrescrito, a implementação executada é a da classe real do objeto armazenado na memória. Isso é polimorfismo por sobrescrita com ligação dinâmica.
 
 ## Por que o cliente não precisa de `instanceof` nem de casting?
 
@@ -90,10 +85,6 @@ A criação das subclasses também é centralizada em `AlunoFactory`, evitando q
 Na pós-graduação, enquanto nenhum conceito foi lançado, `getConceito()` retorna `"-"` e `getSituacao()` retorna `Nao avaliado`. Essa decisão foi usada porque ainda não existe informação suficiente para classificar o aluno como aprovado, em recuperação ou reprovado.
 
 Nos tipos com notas numéricas, as avaliações ainda não lançadas entram implicitamente como zero no cálculo porque a soma das notas existentes é dividida pelo total previsto de avaliações. Esse comportamento segue o padrão já fornecido em `AlunoTecnico`.
-
-## Observação sobre o tipo genérico `Aluno`
-
-Um objeto criado diretamente com `new Aluno(...)` não possui uma regra específica de curso. Por isso, sua situação permanece `Nao avaliado`, demonstrando a diferença entre a implementação neutra da superclasse e as implementações sobrescritas pelas subclasses.
 
 ## Entrega
 
