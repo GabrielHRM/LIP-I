@@ -58,6 +58,8 @@ Além da nova classe `AlunoIntercambio.java`, foram modificados **2 arquivos**:
 
 A estrutura dos métodos de relatório, resumo e controle de prazo não precisou ser alterada para tratar especificamente o novo tipo.
 
+Para o sistema passar a reconhecer um novo tipo de aluno, além da criação da nova classe, apenas `AlunoFactory.java` precisa ser alterado. Nesta prática, `SistemaNotasView.java` também foi modificado somente para incluir um aluno desse novo tipo nos dados usados no teste, sem alterar a estrutura dos métodos de relatório, resumo ou controle de prazo.
+
 ## Por que o cliente consegue tratar todos os alunos do mesmo jeito?
 
 Porque todas as classes específicas herdam de `Aluno`.
