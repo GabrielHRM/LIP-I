@@ -24,7 +24,6 @@ public class AlunoGraduacao extends Aluno {
 
     @Override
     public void lancarNota(String valor) {
-
         if (getNotas().size() >= TOTAL_UNIDADES) {
             System.out.println(
                 "[aviso] A graduacao tem apenas " + TOTAL_UNIDADES
@@ -35,8 +34,7 @@ public class AlunoGraduacao extends Aluno {
 
         if (!ehNotaNumericaValida(valor)) {
             System.out.println(
-                "[aviso] Nota invalida (use um numero de 0 a 10). Nota ignorada: "
-                + valor
+                "[aviso] Nota invalida (use um numero de 0 a 10). Nota ignorada: " + valor
             );
             return;
         }
@@ -56,7 +54,6 @@ public class AlunoGraduacao extends Aluno {
 
     @Override
     public String getSituacao() {
-
         if (getMedia() >= MEDIA_APROVACAO) {
             return APROVADO;
         }
@@ -75,7 +72,6 @@ public class AlunoGraduacao extends Aluno {
 
     @Override
     public String getPeriodoAtual() {
-
         int periodoEntrada;
 
         if (getMesInicio() <= 6) {
@@ -86,15 +82,9 @@ public class AlunoGraduacao extends Aluno {
         }
 
         int semestresDepoisDaEntrada = getTempoDecorrido() - 1;
-
-        int indiceSemestre =
-            (periodoEntrada - 1) + semestresDepoisDaEntrada;
-
-        int anoAtual =
-            getAnoInicio() + indiceSemestre / 2;
-
-        int periodoAtual =
-            indiceSemestre % 2 + 1;
+        int indiceSemestre = (periodoEntrada - 1) + semestresDepoisDaEntrada;
+        int anoAtual = getAnoInicio() + indiceSemestre / 2;
+        int periodoAtual = indiceSemestre % 2 + 1;
 
         return anoAtual + "." + periodoAtual;
     }

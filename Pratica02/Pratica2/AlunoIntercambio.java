@@ -1,3 +1,13 @@
+/**
+ * Aluno de intercambio.
+ *
+ * Tempo de curso: contado em MESES, com prazo máximo de 12 meses.
+ * Nota final: média de 2 avaliações.
+ * Situação: média >= 7,0 aprovado; abaixo de 7,0 recuperação.
+ *
+ * A regra de recuperação abaixo de 7,0 foi adotada para completar a regra
+ * do novo tipo, pois o enunciado fornece apenas o critério de aprovação.
+ */
 public class AlunoIntercambio extends Aluno {
 
     public static final int TOTAL_AVALIACOES = 2;
@@ -10,21 +20,17 @@ public class AlunoIntercambio extends Aluno {
 
     @Override
     public void lancarNota(String valor) {
-
         if (getNotas().size() >= TOTAL_AVALIACOES) {
             System.out.println(
-                "[aviso] O intercambio tem apenas "
-                + TOTAL_AVALIACOES
-                + " avaliacoes. Nota ignorada: "
-                + valor
+                "[aviso] O intercambio tem apenas " + TOTAL_AVALIACOES
+                + " avaliacoes. Nota ignorada: " + valor
             );
             return;
         }
 
         if (!ehNotaNumericaValida(valor)) {
             System.out.println(
-                "[aviso] Nota invalida (use um numero de 0 a 10). "
-                + "Nota ignorada: " + valor
+                "[aviso] Nota invalida (use um numero de 0 a 10). Nota ignorada: " + valor
             );
             return;
         }
@@ -33,7 +39,6 @@ public class AlunoIntercambio extends Aluno {
     }
 
     private double getMedia() {
-
         double soma = 0.0;
 
         for (String nota : getNotas()) {
@@ -45,7 +50,6 @@ public class AlunoIntercambio extends Aluno {
 
     @Override
     public String getSituacao() {
-
         if (getMedia() >= MEDIA_APROVACAO) {
             return APROVADO;
         }

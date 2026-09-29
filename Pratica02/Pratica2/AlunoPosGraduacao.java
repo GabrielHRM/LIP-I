@@ -4,14 +4,6 @@
  * Tempo de curso: contado em MESES, no máximo 24 meses para conclusão.
  * Nota final: conceito A, B, C ou D (não há média numérica).
  * Situação: A ou B aprovado; C recuperação; D reprovado direto.
- *
- * ---------------------------------------------------------------------
- * ITEM 3 DA PRÁTICA: complete esta classe.
- *
- * Repare que aqui NÃO existe média nenhuma: o estado e a regra são
- * diferentes dos outros tipos de aluno, e isso é normal. O que precisa
- * continuar igual é o conjunto de métodos herdado de Aluno.
- * ---------------------------------------------------------------------
  */
 public class AlunoPosGraduacao extends Aluno {
 
@@ -23,20 +15,15 @@ public class AlunoPosGraduacao extends Aluno {
 
     @Override
     public void lancarNota(String valor) {
-
-        // A pós-graduação aceita apenas um conceito.
         if (getNotas().size() >= 1) {
             System.out.println(
-                "[aviso] A pos-graduacao aceita apenas um conceito. "
-                + "Conceito ignorado: " + valor
+                "[aviso] A pos-graduacao aceita apenas um conceito. Conceito ignorado: " + valor
             );
             return;
         }
 
         if (valor == null) {
-            System.out.println(
-                "[aviso] Conceito invalido. Use A, B, C ou D."
-            );
+            System.out.println("[aviso] Conceito invalido (use A, B, C ou D). Conceito ignorado: null");
             return;
         }
 
@@ -46,10 +33,8 @@ public class AlunoPosGraduacao extends Aluno {
                 && !conceito.equals("B")
                 && !conceito.equals("C")
                 && !conceito.equals("D")) {
-
             System.out.println(
-                "[aviso] Conceito invalido. Use A, B, C ou D. "
-                + "Conceito ignorado: " + valor
+                "[aviso] Conceito invalido (use A, B, C ou D). Conceito ignorado: " + valor
             );
             return;
         }
@@ -57,11 +42,7 @@ public class AlunoPosGraduacao extends Aluno {
         super.lancarNota(conceito);
     }
 
-    /**
-     * O conceito lançado, ou "-" enquanto nada foi lançado.
-     */
     private String getConceito() {
-
         if (getNotas().size() == 0) {
             return "-";
         }
@@ -71,10 +52,9 @@ public class AlunoPosGraduacao extends Aluno {
 
     @Override
     public String getSituacao() {
-
         String conceito = getConceito();
 
-        // Sem conceito lançado, o aluno ainda não foi avaliado.
+        // Sem conceito lançado, ainda não há avaliação do aluno.
         if (conceito.equals("-")) {
             return NAO_AVALIADO;
         }
