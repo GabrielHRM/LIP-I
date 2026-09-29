@@ -85,14 +85,3 @@ A criação das subclasses também é centralizada em `AlunoFactory`, evitando q
 Na pós-graduação, enquanto nenhum conceito foi lançado, `getConceito()` retorna `"-"` e `getSituacao()` retorna `Nao avaliado`. Essa decisão foi usada porque ainda não existe informação suficiente para classificar o aluno como aprovado, em recuperação ou reprovado.
 
 Nos tipos com notas numéricas, as avaliações ainda não lançadas entram implicitamente como zero no cálculo porque a soma das notas existentes é dividida pelo total previsto de avaliações. Esse comportamento segue o padrão já fornecido em `AlunoTecnico`.
-
-## Entrega
-
-Antes de compactar o projeto:
-
-1. compile o projeto em uma pasta limpa;
-2. execute `SistemaNotasView` e confira a saída;
-3. não inclua a pasta `out/`;
-4. não inclua arquivos `.class`;
-5. inclua todos os arquivos `.java`, este `README.md` e o diagrama UML;
-6. nomeie o ZIP conforme solicitado no enunciado.
