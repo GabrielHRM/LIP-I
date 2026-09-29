@@ -26,55 +26,52 @@ public class SistemaNotasView {
     }
 
     private static ArrayList<Aluno> montarTurma() {
+
         ArrayList<Aluno> turma = new ArrayList<Aluno>();
 
-        // Dois alunos em pontos diferentes do curso - os dois criados pela
-        // fábrica, porque esta classe nunca instancia uma subclasse.
-        // A única informação de tempo que o cliente informa é o INÍCIO DO
-        // CURSO; quem transforma isso em ano, semestre ou mês é cada aluno.
-        Aluno einstein = AlunoFactory.criar("TECNICO", "2026001", "Albert Einstein");
-        turma.add(einstein); // calouro: a fábrica já o cria começando agora
+        String[][] alunos = {
+            {"TECNICO",     "2026001", "Albert Einstein",    "03/2026"},
+            {"TECNICO",     "2021005", "Emmy Noether",       "03/2021"},
+            {"GRADUACAO",   "2026003", "Cecilia Payne",      "03/2026"},
+            {"POS",         "2026004", "Dmitri Mendeleev",   "03/2026"},
+            {"GRADUACAO",   "2020005", "Ada Lovelace",       "03/2020"},
+            {"POS",         "2020006", "Marie Curie",         "03/2020"},
+            {"INTERCAMBIO", "2026015", "Rosalind Franklin",  "03/2026"}
+        };
 
-        Aluno noether = AlunoFactory.criar("TECNICO", "2021005", "Emmy Noether");
-        noether.setInicioDoCurso("03/2021"); // 6o ano: prazo estourado
-        turma.add(noether);
+        String[][] notas = {
+            {"8.0", "7.5", "6.0", "9.0"},
+            {"4.0", "3.0", "5.0", "2.0"},
+            {"8.0", "7.0", "9.0"},
+            {"A"},
+            {"5.0", "5.0", "5.0"},
+            {"C"},
+            {"8.0", "7.0"}
+        };
 
-        // TODO 5.1: depois de terminar o item 4, crie alunos com AlunoFactory.criar(...)
-        // a partir do texto do tipo - como um sistema real faria ao ler um formulário
-        // ou um banco de dados. Por exemplo:
-        //
-        //     String[][] matriculas = {
-        //         {"TECNICO",   "2026002", "Blaise Pascal",    "03/2026"},
-        //         {"GRADUACAO", "2026003", "Cecilia Payne",    "03/2026"},
-        //         {"POS",       "2026004", "Dmitri Mendeleev", "03/2026"},
-        //     };
-        //     for (int i = 0; i < matriculas.length; i++) {
-        //         Aluno aluno = AlunoFactory.criar(
-        //             matriculas[i][0],
-        //             matriculas[i][1],
-        //             matriculas[i][2]
-        //         );
-        //         if (aluno != null) {
-        //             aluno.setInicioDoCurso(matriculas[i][3]);
-        //             turma.add(aluno);
-        //         }
-        //     }
-        //
-        // TODO 5.2: inclua também um aluno de graduação e um de pós-graduação
-        // com início de curso antigo, para testar as regras de prazo. Repare
-        // que a mesma chamada setInicioDoCurso("03/2020") deixa a graduação no
-        // 13o semestre e a pós-graduação no 73o mês: a data é a mesma, a
-        // leitura que cada curso faz dela é que muda.
+        for (int i = 0; i < alunos.length; i++) {
 
-        // Lançamento de notas: a MESMA chamada serve para qualquer tipo de
-        // aluno. Cada objeto interpreta o valor recebido a sua maneira.
-        lancarNotas(turma.get(0), "8.0", "7.5", "6.0", "9.0");
-        lancarNotas(turma.get(1), "4.0", "3.0", "5.0", "2.0");
-        // TODO 5.3: lance as notas dos demais alunos (3 notas para a
-        // graduação, 1 conceito para a pós-graduação).
+            Aluno aluno = AlunoFactory.criar(
+                alunos[i][0],
+                alunos[i][1],
+                alunos[i][2]
+            );
+
+            if (aluno != null) {
+
+                aluno.setInicioDoCurso(alunos[i][3]);
+
+                lancarNotas(
+                    aluno,
+                    notas[i]
+                );
+
+                turma.add(aluno);
+            }
+        }
 
         return turma;
-    }
+}
 
     /** Lança várias notas de um aluno qualquer, sem saber o tipo dele. */
     private static void lancarNotas(Aluno aluno, String... valores) {
