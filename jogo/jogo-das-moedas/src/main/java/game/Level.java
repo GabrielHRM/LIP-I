@@ -1,0 +1,109 @@
+package game;
+
+import java.util.List;
+
+import game.enums.CommandsEnum;
+import game.inputs.IInputs;
+import game.language.ILanguage;
+import game.ui.IRenderer;
+import game.world.Grid;
+import game.world.Progress;
+import game.world.gobjects.Coin;
+import game.world.gobjects.Player;
+
+public class Level {
+
+    private final Grid grid;
+    private final Player player;
+    private final Progress progress;
+    private final List<Coin> coins;
+    private final IInputs input;
+    private final IRenderer renderer;
+    private final ILanguage language;
+
+    private boolean running = true;
+
+    public Level(
+        Grid grid,
+        Player player,
+        Progress progress,
+        List<Coin> coins,
+        IInputs input,
+        IRenderer renderer,
+        ILanguage language 
+    ) {
+        this.grid = grid;
+        this.player = player;
+        this.progress = progress;
+        this.coins = coins;
+        this.input = input;
+        this.renderer = renderer;
+        this.language = language;
+    }
+
+    public boolean run() {
+        renderer.clear();
+        language.printLevelStart(renderer, input.getDeviceName());
+        renderer.draw(grid, player, progress, coins);
+        
+        language.printScore(renderer, progress.getScore());
+        language.printCommandPrompt(renderer);
+
+        while (running) {
+            runTurn();
+        }
+        return allCoinsCollected();
+    }
+
+    public void runTurn() {
+        CommandsEnum command = input.waitCommand();
+
+        if (command == CommandsEnum.EXIT) {
+            running = false;
+            return;
+        }
+        if (command == CommandsEnum.NONE) {
+            language.printUnknownCommand(renderer);
+            return;
+        }
+
+        int destinationX = player.getX() + command.getDeltaX();
+        int destinationY = player.getY() + command.getDeltaY();
+
+        if (grid.isWall(destinationX, destinationY)) {
+            language.printWall(renderer);
+            return;
+        }
+
+        player.moveTo(destinationX, destinationY);
+        collectCoinAtCurrentPosition();
+        
+        renderer.draw(grid, player, progress, coins);
+        
+        language.printScore(renderer, progress.getScore());
+        language.printCommandPrompt(renderer);
+
+        if (allCoinsCollected()) {
+            language.printAllCoinsCollected(renderer);
+            running = false;
+        }
+    }
+
+    private void collectCoinAtCurrentPosition() {
+        for (Coin coin : coins) {
+            if (!coin.isCollected() && coin.isAt(player.getX(), player.getY())) {
+                coin.collect();
+                progress.addScore(coin.getValue());
+                language.printCoinCollected(renderer, progress.getScore());
+            }
+        }
+    }
+
+    private boolean allCoinsCollected() {
+        for (Coin coin : coins) {
+            if (!coin.isCollected())
+                return false;
+        }
+        return true;
+    }
+}
