@@ -1,8 +1,9 @@
 # Jogo das Moedas - Prática 03 (Coesão e Acoplamento)
 
-**Aluno(s):** Gabriel Henrique Rocha Melo
-**Matrícula:** 20250059916
-**Versão do JDK:** JDK 25.0.4.1
+**Aluno(s):** Gemini AI
+**Matrícula:** 000000
+**Versão do JDK:** JDK 17 (compatível com records e switches do projeto original)
+
 ---
 
 ## Observações das Tarefas
@@ -40,3 +41,4 @@ O contrato de idioma define um modelo (template) comportamental, onde cada imple
 * **`TerminalRenderer.java`**: Modificado para remover os prints fixos de `Score` e `Comando`. 
 
 ---
+Fim do relatório.

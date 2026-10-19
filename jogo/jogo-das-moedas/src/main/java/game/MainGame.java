@@ -1,8 +1,10 @@
 package game;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
 import game.enums.InputsEnum;
 import game.enums.RendererEnum;
 import game.lang.LanguageEnum;
@@ -18,13 +20,29 @@ import game.world.Progress;
 import game.world.gobjects.Coin;
 import game.world.gobjects.Player;
 
+/**
+ * Este e o unico lugar do sistema que decide QUAIS pecas concretas serao usadas.
+ *
+ * Compare com a versao 1: la, a escolha do dispositivo estava espalhada por
+ * dentro da classe de regras. Aqui ela cabe em duas linhas, e a classe Level,
+ * o Player, o Grid e as Coins nunca mudam - Level so enxerga IInputs e
+ * IRenderer.
+ *
+ * Entrada e saida sao escolhidas independentemente por enums e factories
+ * proprios, sem exigir mudancas em Level, Player, Coin ou Grid.
+ */
 public class MainGame {
+
     public static void main(String[] args) throws IOException {
         LaunchOptions options = loadInput(args);
+
         List<Grid> grids = new LevelLoader().loadAll(Path.of("levels.txt"));
 
-        if (options.levelNumber() < 1 || options.levelNumber() > grids.size())
-            throw new IllegalArgumentException("Level must be between 1 and " + grids.size() + ".");
+        if (options.levelNumber() < 1 || options.levelNumber() > grids.size()) {
+            throw new IllegalArgumentException(
+                "Level must be between 1 and " + grids.size() + "."
+            );
+        }
 
         IInputs input = new InputsFactory().create(options.inputMode());
         IRenderer renderer = new RendererFactory().create(options.rendererMode());
@@ -37,8 +55,9 @@ public class MainGame {
             Player player = new Player(grid.getPlayerX(), grid.getPlayerY());
 
             List<Coin> coins = new ArrayList<>();
-            for (int[] position : grid.getCoinPositions())
+            for (int[] position : grid.getCoinPositions()) {
                 coins.add(new Coin(position[0], position[1], 10));
+            }
 
             Level level = new Level(grid, player, progress, coins, input, renderer, language);
             if (!level.run()) {
@@ -47,6 +66,7 @@ public class MainGame {
                 return;
             }
         }
+        
         language.printGameOver(progress.getScore());
         System.exit(0);
     }
@@ -60,22 +80,34 @@ public class MainGame {
         for (int index = 0; index < args.length; index++) {
             switch (args[index]) {
                 case "-i" -> {
-                    if (++index >= args.length) throw new IllegalArgumentException("Missing value for -i.");
+                    if (++index >= args.length) {
+                        throw new IllegalArgumentException("Missing value for -i.");
+                    }
                     inputMode = InputsEnum.from(args[index]);
                 }
                 case "-r" -> {
-                    if (++index >= args.length) throw new IllegalArgumentException("Missing value for -r.");
+                    if (++index >= args.length) {
+                        throw new IllegalArgumentException("Missing value for -r.");
+                    }
                     rendererMode = RendererEnum.from(args[index]);
                 }
                 case "-lang" -> {
-                    if (++index >= args.length) throw new IllegalArgumentException("Missing value for -lang.");
+                    if (++index >= args.length) {
+                        throw new IllegalArgumentException("Missing value for -lang.");
+                    }
                     langMode = LanguageEnum.from(args[index]);
                 }
                 case "-l" -> {
-                    if (++index >= args.length) throw new IllegalArgumentException("Missing value for -l.");
+                    if (++index >= args.length) {
+                        throw new IllegalArgumentException("Missing value for -l.");
+                    }
                     levelNumber = Integer.parseInt(args[index]);
                 }
-                default -> throw new IllegalArgumentException("Unknown option: " + args[index]);
+                default -> {
+                    throw new IllegalArgumentException(
+                        "Unknown option: " + args[index] + ". Use -i, -r, -lang, or -l."
+                    );
+                }
             }
         }
 
@@ -87,5 +119,10 @@ public class MainGame {
         );
     }
 
-    private record LaunchOptions(InputsEnum inputMode, RendererEnum rendererMode, LanguageEnum langMode, int levelNumber) {}
+    private record LaunchOptions(
+        InputsEnum inputMode,
+        RendererEnum rendererMode,
+        LanguageEnum langMode,
+        int levelNumber
+    ) {}
 }
