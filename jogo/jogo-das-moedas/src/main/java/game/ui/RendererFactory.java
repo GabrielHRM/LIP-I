@@ -9,7 +9,6 @@ public class RendererFactory implements IFactory<IRenderer, RendererEnum> {
     public IRenderer create(RendererEnum key) {
         return switch (key) {
             case TERMINAL -> new TerminalRenderer();
-            case GUI -> new GUIRenderer();
         };
     }
 }

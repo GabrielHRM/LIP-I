@@ -4,13 +4,23 @@ import java.util.List;
 
 import game.enums.CommandsEnum;
 import game.inputs.IInputs;
-import game.language.ILanguage;
 import game.ui.IRenderer;
 import game.world.Grid;
 import game.world.Progress;
 import game.world.gobjects.Coin;
 import game.world.gobjects.Player;
 
+/**
+ * VERSAO 2 - BAIXO ACOPLAMENTO / ALTA COESAO
+ *
+ * Responsabilidade unica desta classe: aplicar as REGRAS do jogo.
+ * Quem move, quem colide, quem coleta, quem termina a partida.
+ *
+ * Tudo que nao e regra chega pronto pelo construtor - isso se chama
+ * INJECAO DE DEPENDENCIA. A classe nao cria nada com "new": ela recebe.
+ *
+ * Consequencia pratica: Level nunca precisou saber que existe teclado.
+ */
 public class Level {
 
     private final Grid grid;
@@ -19,7 +29,6 @@ public class Level {
     private final List<Coin> coins;
     private final IInputs input;
     private final IRenderer renderer;
-    private final ILanguage language;
 
     private boolean running = true;
 
@@ -29,8 +38,7 @@ public class Level {
         Progress progress,
         List<Coin> coins,
         IInputs input,
-        IRenderer renderer,
-        ILanguage language 
+        IRenderer renderer
     ) {
         this.grid = grid;
         this.player = player;
@@ -38,16 +46,12 @@ public class Level {
         this.coins = coins;
         this.input = input;
         this.renderer = renderer;
-        this.language = language;
     }
 
     public boolean run() {
         renderer.clear();
-        language.printLevelStart(renderer, input.getDeviceName());
+        renderer.showMessage("=== Collect the coins ($) - control: " + input.getDeviceName() + " ===");
         renderer.draw(grid, player, progress, coins);
-        
-        language.printScore(renderer, progress.getScore());
-        language.printCommandPrompt(renderer);
 
         while (running) {
             runTurn();
@@ -55,6 +59,10 @@ public class Level {
         return allCoinsCollected();
     }
 
+    /**
+     * Um unico turno do jogo. E publico de proposito: e esta a unidade
+     * que os testes exercitam, sem precisar do laco nem de dispositivo nenhum.
+     */
     public void runTurn() {
         CommandsEnum command = input.waitCommand();
 
@@ -63,7 +71,7 @@ public class Level {
             return;
         }
         if (command == CommandsEnum.NONE) {
-            language.printUnknownCommand(renderer);
+            renderer.showMessage("Unknown command.");
             return;
         }
 
@@ -71,20 +79,16 @@ public class Level {
         int destinationY = player.getY() + command.getDeltaY();
 
         if (grid.isWall(destinationX, destinationY)) {
-            language.printWall(renderer);
+            renderer.showMessage("Wall! You cannot go there.");
             return;
         }
 
         player.moveTo(destinationX, destinationY);
         collectCoinAtCurrentPosition();
-        
         renderer.draw(grid, player, progress, coins);
-        
-        language.printScore(renderer, progress.getScore());
-        language.printCommandPrompt(renderer);
 
         if (allCoinsCollected()) {
-            language.printAllCoinsCollected(renderer);
+            renderer.showMessage("You collected all coins!");
             running = false;
         }
     }
@@ -94,7 +98,7 @@ public class Level {
             if (!coin.isCollected() && coin.isAt(player.getX(), player.getY())) {
                 coin.collect();
                 progress.addScore(coin.getValue());
-                language.printCoinCollected(renderer, progress.getScore());
+                renderer.showMessage("Coin collected! Score: " + progress.getScore());
             }
         }
     }

@@ -9,8 +9,6 @@ public class InputsFactory implements IFactory<IInputs, InputsEnum> {
     public IInputs create(InputsEnum mode) {
         return switch (mode) {
             case KEYBOARD -> new KeyboardInput();
-            case BUTTONS -> new ButtonInputs();
-            case JOYSTICK -> new VirtualJoystickInput();
         };
     }
 }

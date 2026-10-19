@@ -7,11 +7,8 @@ import java.util.List;
 
 import game.enums.InputsEnum;
 import game.enums.RendererEnum;
-import game.enums.LanguageEnum;
 import game.inputs.IInputs;
 import game.inputs.InputsFactory;
-import game.language.ILanguage;
-import game.language.LanguageFactory;
 import game.ui.IRenderer;
 import game.ui.RendererFactory;
 import game.utils.LevelLoader;
@@ -20,6 +17,17 @@ import game.world.Progress;
 import game.world.gobjects.Coin;
 import game.world.gobjects.Player;
 
+/**
+ * Este e o unico lugar do sistema que decide QUAIS pecas concretas serao usadas.
+ *
+ * Compare com a versao 1: la, a escolha do dispositivo estava espalhada por
+ * dentro da classe de regras. Aqui ela cabe em duas linhas, e a classe Level,
+ * o Player, o Grid e as Coins nunca mudam - Level so enxerga IInputs e
+ * IRenderer.
+ *
+ * Entrada e saida sao escolhidas independentemente por enums e factories
+ * proprios, sem exigir mudancas em Level, Player, Coin ou Grid.
+ */
 public class MainGame {
 
     public static void main(String[] args) throws IOException {
@@ -33,7 +41,6 @@ public class MainGame {
 
         IInputs input = new InputsFactory().create(options.inputMode());
         IRenderer renderer = new RendererFactory().create(options.rendererMode());
-        ILanguage language = new LanguageFactory().create(options.langMode());
 
         Progress progress = new Progress();
 
@@ -45,19 +52,18 @@ public class MainGame {
             for (int[] position : grid.getCoinPositions())
                 coins.add(new Coin(position[0], position[1], 10));
 
-            Level level = new Level(grid, player, progress, coins, input, renderer, language);
+            Level level = new Level(grid, player, progress, coins, input, renderer);
             if (!level.run()) {
-                language.printEarlyExit(renderer, progress.getScore());
+                renderer.showMessage("Final score: " + progress.getScore());
                 return;
             }
         }
-        language.printGameOver(renderer, progress.getScore());
+        renderer.showMessage("FIM DE JOGO - Score: " + progress.getScore());
     }
 
     private static LaunchOptions loadInput(String[] args) {
         InputsEnum inputMode = null;
         RendererEnum rendererMode = null;
-        LanguageEnum langMode = null;
         int levelNumber = 1;
 
         for (int index = 0; index < args.length; index++) {
@@ -77,20 +83,14 @@ public class MainGame {
                         throw new IllegalArgumentException("Missing value for -l.");
                     levelNumber = Integer.parseInt(args[index]);
                 }
-                case "-lang" -> {
-                    if (++index >= args.length)
-                        throw new IllegalArgumentException("Missing value for -lang.");
-                    langMode = LanguageEnum.from(args[index]);
-                }
                 default -> throw new IllegalArgumentException(
-                    "Unknown option: " + args[index] + ". Use -i, -r, -l, or -lang.");
+                    "Unknown option: " + args[index] + ". Use -i, -r, or -l.");
             }
         }
 
         return new LaunchOptions(
             inputMode == null ? InputsEnum.from() : inputMode,
             rendererMode == null ? RendererEnum.from() : rendererMode,
-            langMode == null ? LanguageEnum.from() : langMode, 
             levelNumber
         );
     }
@@ -98,7 +98,6 @@ public class MainGame {
     private record LaunchOptions(
         InputsEnum inputMode,
         RendererEnum rendererMode,
-        LanguageEnum langMode,
         int levelNumber
     ) {}
 }

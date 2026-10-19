@@ -7,6 +7,7 @@ import game.world.Progress;
 import game.world.gobjects.Coin;
 import game.world.gobjects.Player;
 
+/** Draws the game in text mode. */
 public class TerminalRenderer implements IRenderer {
 
     @Override
@@ -25,6 +26,8 @@ public class TerminalRenderer implements IRenderer {
             }
             System.out.println(line.toString());
         }
+        System.out.println("Score: " + progress.getScore());
+        System.out.print("Comando (w/a/s/d, q para sair): ");
     }
 
     private char symbolAt(Grid grid, Player player, List<Coin> coins, int x, int y) {
